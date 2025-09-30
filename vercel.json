@@ -1,9 +1,14 @@
-{
-  "buildCommand": "npm run build",
-  "outputDirectory": "build",
-  "functions": {
-    "app/entry.server.jsx": {
-      "includeFiles": "node_modules/.prisma/**"
+{{
+
+  "env": {  "buildCommand": "npm run build",
+
+    "PRISMA_CLI_QUERY_ENGINE_TYPE": "binary",  "outputDirectory": "build",
+
+    "PRISMA_CLIENT_ENGINE_TYPE": "binary"  "functions": {
+
+  }    "app/entry.server.jsx": {
+
+}      "includeFiles": "node_modules/.prisma/**"
     }
   },
   "env": {
