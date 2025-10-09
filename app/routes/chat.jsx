@@ -133,14 +133,7 @@ async function handleChatSession({
 
   // Initialize MCP client
   const shopId = request.headers.get("X-Shopify-Shop-Id");
-  const originUrl = request.headers.get("Origin");
-  // Extract domain from Origin URL (remove protocol)
-  const shopDomain = originUrl ? new URL(originUrl).hostname : null;
-  
-  if (!shopDomain) {
-    throw new Error("Invalid or missing shop domain");
-  }
-  
+  const shopDomain = request.headers.get("Origin");
   const customerMcpEndpoint = await getCustomerMcpEndpoint(shopDomain, conversationId);
   const mcpClient = new MCPClient(
     shopDomain,
@@ -312,8 +305,9 @@ async function getCustomerMcpEndpoint(shopDomain, conversationId) {
     }
 
     // If not, query for it from the Shopify API
+    const { hostname } = new URL(shopDomain);
     const { storefront } = await unauthenticated.storefront(
-      shopDomain
+      hostname
     );
 
     const response = await storefront.graphql(
