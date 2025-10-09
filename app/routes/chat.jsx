@@ -305,9 +305,8 @@ async function getCustomerMcpEndpoint(shopDomain, conversationId) {
     }
 
     // If not, query for it from the Shopify API
-    const { hostname } = new URL(shopDomain);
     const { storefront } = await unauthenticated.storefront(
-      hostname
+      shopDomain
     );
 
     const response = await storefront.graphql(
